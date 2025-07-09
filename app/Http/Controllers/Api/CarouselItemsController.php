@@ -11,6 +11,7 @@ class CarouselItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Reading
      */
     public function index()
     {
@@ -21,6 +22,7 @@ class CarouselItemsController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Create
      */
     public function store(Request $request)
     {
@@ -29,10 +31,12 @@ class CarouselItemsController extends Controller
 
     /**
      * Display the specified resource.
+     * 
      */
     public function show(string $id)
     {
-        //
+        return CarouselItems::findOrFail($id);
+         
     }
 
 
