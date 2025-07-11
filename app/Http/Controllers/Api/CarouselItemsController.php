@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\CarouselItems;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CarouselItemRequest;
 
 class CarouselItemsController extends Controller
 {
@@ -24,9 +25,15 @@ class CarouselItemsController extends Controller
      * Store a newly created resource in storage.
      * Create
      */
-    public function store(Request $request)
+    public function store(CarouselItemRequest $request)
     {
-        //
+         // Retrieve the validated input data...
+         $validated = $request->validated();
+
+        //insert data sa database (isa lang kabuok, dli multiple)
+        $carouselItem = CarouselItems::create($validated);
+
+        return $carouselItem;
     }
 
     /**
@@ -35,6 +42,7 @@ class CarouselItemsController extends Controller
      */
     public function show(string $id)
     {
+        //Specific item ang pangitaon. If naa ang data mo gawas siya, if not, edi error siya.
         return CarouselItems::findOrFail($id);
          
     }
@@ -53,6 +61,9 @@ class CarouselItemsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //Hard delete - bali deleted jud siya sa database.
+        $carouselItem = CarouselItems::findOrFail($id);
+        $carouselItem->delete();
+        return $carouselItem;
     }
 }
